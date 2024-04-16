@@ -1,8 +1,13 @@
 <template>
-  <div></div>
+  <div>
+    <label for="username">input username</label>
+    <input type="text" name="username" class="username" />
+    <label for="password">input password</label>
+    <input type="text" name="password" class="password" />
+  </div>
 </template>
 
-<script setup>
+<script>
 import { createClient } from '@supabase/supabase-js'
 export const supabase = createClient(
   'https://zltjxgueweobufzamksv.supabase.co',
