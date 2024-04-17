@@ -2,13 +2,6 @@
 import { ref, onMounted } from 'vue'
 import { supabase } from '@/lib/SupabaseClient.js'
 import { RouterLink, RouterView } from 'vue-router'
-
-const countries = ref([])
-
-async function getCountries() {
-  const { data } = await supabase.from('countries').select()
-  countries.value = data
-}
 </script>
 
 <template>
