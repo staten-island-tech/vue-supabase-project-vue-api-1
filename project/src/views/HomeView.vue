@@ -11,6 +11,9 @@
 import { ref, onMounted } from 'vue'
 import { supabase } from '@/lib/SupabaseClient.js'
 import { RouterLink, RouterView } from 'vue-router'
+import { createPinia } from 'pinia'
+const pinia = createPinia()
+app.use(pinia)
 </script>
 
 <style lang="scss" scoped></style>
