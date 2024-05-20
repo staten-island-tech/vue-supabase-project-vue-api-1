@@ -14,7 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
 app.use(pinia)
-const { insery } = await supabase.from('input').insert({ id: 1, name: 'Denmark' })
+const { insert } = await supabase.from('input').insert({ id: 1, name: 'Denmark' })
 </script>
 
 <style lang="scss" scoped></style>
