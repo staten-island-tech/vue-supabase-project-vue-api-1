@@ -11,18 +11,17 @@ const login = async () => {
     password: password.value
   })
 }
-const signin = async () => {
+const signup = async () => {
   try {
     loading.value = true
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value
     })
     if (error) throw error
-    alert('wrong email')
   } catch (error) {
     if (error instanceof Error) {
-      alert(error.message)
+      alert('error')
     }
   } finally {
     loading.value = false
@@ -45,12 +44,8 @@ const signin = async () => {
           v-model="password"
         />
       </div>
-      <div>
-        <input type="submit" class="button" @click="signin" />
-      </div>
-      <div>
-        <input type="submit" class="button" @click="login" />
-      </div>
+      <div><input type="submit" class="button" @click="signup" /> signup</div>
+      <div><input type="submit" class="button" @click="login" /> login</div>
     </div>
   </form>
 </template>
