@@ -21,7 +21,7 @@ const signup = async () => {
     if (error) throw error
   } catch (error) {
     if (error instanceof Error) {
-      alert('error')
+      alert('error password too short 6 or more letters')
     }
   } finally {
     loading.value = false
