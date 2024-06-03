@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import Auth from '@/components/Auth.vue'
+import Auth from '@/components/AuthUser.vue'
 import { supabase } from '@/lib/SupabaseClient.js'
 import { RouterLink, RouterView } from 'vue-router'
 import { createPinia } from 'pinia'
