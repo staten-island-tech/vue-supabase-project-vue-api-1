@@ -1,20 +1,25 @@
-<template>
-  <div>
-    <label for="username">input username</label>
-    <input type="text" name="username" class="username" />
-    <label for="password">input password</label>
-    <input type="text" name="password" class="password" />
-  </div>
-</template>
-
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import Auth from '@/components/Auth.vue'
 import { supabase } from '@/lib/SupabaseClient.js'
 import { RouterLink, RouterView } from 'vue-router'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
-app.use(pinia)
-const { insert } = await supabase.from('input').insert({ id: 1, name: 'Denmark' })
+const session = ref()
+
+onMounted(() => {
+  supabase.auth.getSession().then(({ data }) => {
+    session.value = data.session
+  })
+
+  supabase.auth.onAuthStateChange((_, _session) => {
+    session.value = _session
+  })
+})
 </script>
 
-<style lang="scss" scoped></style>
+<template>
+  <div class="container" style="padding: 50px 0 100px 0">
+    <Auth />
+  </div>
+</template>
