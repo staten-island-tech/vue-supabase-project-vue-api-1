@@ -15,12 +15,16 @@ const logout = async () => {
   }
   router.push('/')
 }
+const make_a_post = async () => {
+  router.push('/post')
+}
 </script>
 
 <template>
   <form class="row flex-center flex" @submit.prevent="handleLogin">
     <div class="col-6 form-widget">
       <div><input type="submit" class="button" @click="logout" /> login out</div>
+      <div><input type="submit" class="button" @click="logout" /> make a post</div>
     </div>
   </form>
 </template>
