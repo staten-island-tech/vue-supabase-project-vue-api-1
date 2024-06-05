@@ -24,7 +24,7 @@ const make_a_post = async () => {
   <form class="row flex-center flex" @submit.prevent="handleLogin">
     <div class="col-6 form-widget">
       <div><input type="submit" class="button" @click="logout" /> login out</div>
-      <div><input type="submit" class="button" @click="logout" /> make a post</div>
+      <div><input type="submit" class="button" @click="make_a_post" /> make a post</div>
     </div>
   </form>
 </template>

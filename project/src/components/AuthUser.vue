@@ -5,12 +5,23 @@ import router from '@/router'
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
+
 const login = async () => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
-  })
-  router.push('/account')
+  try {
+    loading.value = true
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value
+    })
+    if (error) throw error
+    router.push('/account')
+  } catch (error) {
+    if (error instanceof Error) {
+      alert('error ')
+    }
+  } finally {
+    loading.value = false
+  }
 }
 const signup = async () => {
   try {
@@ -23,7 +34,7 @@ const signup = async () => {
     router.push('/account')
   } catch (error) {
     if (error instanceof Error) {
-      alert('error password too short 6 or more letters')
+      alert('error')
     }
   } finally {
     loading.value = false
