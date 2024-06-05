@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { supabase } from '@/lib/SupabaseClient.js'
-
+import router from '@/router'
 const loading = ref(false)
 const email = ref('')
 const password = ref('')
@@ -10,6 +10,7 @@ const login = async () => {
     email: email.value,
     password: password.value
   })
+  router.push('/account')
 }
 const signup = async () => {
   try {
@@ -19,21 +20,13 @@ const signup = async () => {
       password: password.value
     })
     if (error) throw error
+    router.push('/account')
   } catch (error) {
     if (error instanceof Error) {
       alert('error password too short 6 or more letters')
     }
   } finally {
     loading.value = false
-  }
-}
-const logout = async () => {
-  const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    console.log('logout failed')
-  } else {
-    console.log('logout successful')
   }
 }
 </script>
@@ -55,7 +48,6 @@ const logout = async () => {
       </div>
       <div><input type="submit" class="button" @click="signup" /> signup</div>
       <div><input type="submit" class="button" @click="login" /> login</div>
-      <div><input type="submit" class="button" @click="logout" /> login out</div>
     </div>
   </form>
 </template>

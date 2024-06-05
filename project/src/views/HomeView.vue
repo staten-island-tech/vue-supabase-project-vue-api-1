@@ -5,17 +5,6 @@ import { supabase } from '@/lib/SupabaseClient.js'
 import { RouterLink, RouterView } from 'vue-router'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
-const session = ref()
-
-onMounted(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    session.value = data.session
-  })
-
-  supabase.auth.onAuthStateChange((_, _session) => {
-    session.value = _session
-  })
-})
 </script>
 
 <template>
