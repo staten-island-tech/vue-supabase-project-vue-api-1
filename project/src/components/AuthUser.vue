@@ -27,6 +27,15 @@ const signup = async () => {
     loading.value = false
   }
 }
+const logout = async () => {
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.log('logout failed')
+  } else {
+    console.log('logout successful')
+  }
+}
 </script>
 
 <template>
@@ -46,6 +55,7 @@ const signup = async () => {
       </div>
       <div><input type="submit" class="button" @click="signup" /> signup</div>
       <div><input type="submit" class="button" @click="login" /> login</div>
+      <div><input type="submit" class="button" @click="logout" /> login out</div>
     </div>
   </form>
 </template>
