@@ -14,7 +14,7 @@ const login = async () => {
       password: password.value
     })
     if (error) throw error
-    router.push('/account')
+    router.push('/mainsite')
   } catch (error) {
     if (error instanceof Error) {
       alert('error ')
@@ -31,7 +31,7 @@ const signup = async () => {
       password: password.value
     })
     if (error) throw error
-    router.push('/account')
+    router.push('/mainsite')
   } catch (error) {
     if (error instanceof Error) {
       alert('error')
@@ -97,10 +97,6 @@ body * {
     background 0.2s ease,
     color 0.2s ease,
     box-shadow 0.2s ease;
-  :hover {
-    background: rgba(0, 118, 255, 0.9);
-    box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
-  }
 }
 input {
   padding: 0.5rem, 1rem;
@@ -112,10 +108,5 @@ input {
   height: 3rem;
   appearance: none;
   transition: border 0.15s ease 0s;
-  :focus {
-    outline: none;
-    box-shadow: none;
-    border-color: rgb(100, 153, 255);
-  }
 }
 </style>
