@@ -1,56 +1,60 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '@/lib/SupabaseClient.js'
-import router from '@/router'
-const loading = ref(false)
-const email = ref('')
-const password = ref('')
+import { ref, onMounted } from "vue";
+import { supabase } from "@/lib/SupabaseClient.js";
+import router from "@/router";
+import { checkin } from "@/stores/counter";
+const loading = ref(false);
+const email = ref("");
+const password = ref("");
+const store = checkin();
 const logout = async () => {
-  const { error } = await supabase.auth.signOut()
+  const { error } = await supabase.auth.signOut();
 
   if (error) {
-    console.log('logout failed')
+    console.log("logout failed");
   } else {
-    console.log('logout successful')
+    console.log("logout successful");
+    store.loggedin = ref(false);
   }
-  router.push('/')
-}
+  router.push("/");
+};
 const make_a_post = async () => {
-  router.push('/post')
-}
+  if ((store.loggedin = ref(true))) {
+    router.push("/post");
+  } else {
+    alert("no permission");
+  }
+};
 
 let feedlist = ref([]);
 
 onMounted(async () => {
   await getdata();
   await dating();
-}) 
+});
 
-async function getdata(){
-  const {data, error} = await supabase.from("posts").select().order("id", {ascending:false});;
-  if (error){
+async function getdata() {
+  const { data, error } = await supabase.from("posts").select().order("id", { ascending: false });
+  if (error) {
     console.error(error);
     alert("Unable to fetch posts");
-  }
-  else{
-    feedlist.value = data
-    console.log(feedlist.value)
+  } else {
+    feedlist.value = data;
+    console.log(feedlist.value);
   }
 }
 
 let dategood = false;
-let feedingdate = []
-async function dating(){
-   feedingdate = feedlist.value.map((post) => {
-    console.log(post.created_at)
-    const createdDate = new Date(post.created_at)
+let feedingdate = [];
+async function dating() {
+  feedingdate = feedlist.value.map((post) => {
+    console.log(post.created_at);
+    const createdDate = new Date(post.created_at);
     createdDate.toString();
-    return createdDate
-  }
-  )
+    return createdDate;
+  });
   dategood = true;
 }
-
 </script>
 
 <template>
@@ -63,17 +67,13 @@ async function dating(){
 
   <div class="feed" v-if="dategood">
     <li>
-      <div v-for="(post, index) in feedlist" >
-      <div class="timestamp"> {{ feedingdate[index]}}</div>
-      <div class="text">{{ post.input }}</div>
-      <img :src="post.image" alt="">
-    </div>
+      <div v-for="(post, index) in feedlist">
+        <div class="timestamp">{{ feedingdate[index] }}</div>
+        <div class="text">{{ post.input }}</div>
+        <img :src="post.image" alt="" />
+      </div>
     </li>
-
   </div>
-
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
