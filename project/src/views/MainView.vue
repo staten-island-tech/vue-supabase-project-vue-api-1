@@ -76,4 +76,21 @@ async function dating() {
   </div>
 </template>
 
-<style scoped></style>
+<style css>
+body * {
+  box-sizing: border-box;
+  font-size: 110%;
+  margin: 0;
+  padding: 0;
+}
+.feed {
+  width: 30rem;
+  margin: 1rem auto;
+  border-radius: 2rem;
+  background-color: #59a6a6;
+  object-fit: cover;
+  border-radius: 2rem;
+  justify-content: space-around;
+  margin-top: 6rem;
+}
+</style>
