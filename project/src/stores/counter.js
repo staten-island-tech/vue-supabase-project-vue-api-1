@@ -1,12 +1,9 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { ref } from "vue";
+import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
+export const checkin = defineStore("store", async () => {
+  const loggedin = ref(false);
+  const email = ref("");
 
-  return { count, doubleCount, increment }
-})
+  return { loggedin, email };
+});

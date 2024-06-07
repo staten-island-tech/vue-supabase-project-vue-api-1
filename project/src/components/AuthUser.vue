@@ -1,45 +1,48 @@
 <script setup>
-import { ref } from 'vue'
-import { supabase } from '@/lib/SupabaseClient.js'
-import router from '@/router'
-const loading = ref(false)
-const email = ref('')
-const password = ref('')
-
+import { ref } from "vue";
+import { supabase } from "@/lib/SupabaseClient.js";
+import { checkin } from "@/stores/counter";
+import router from "@/router";
+const loading = ref(false);
+const email = ref("");
+const password = ref("");
+const store = checkin();
 const login = async () => {
   try {
-    loading.value = true
+    loading.value = true;
     const { error } = await supabase.auth.signInWithPassword({
       email: email.value,
-      password: password.value
-    })
-    if (error) throw error
-    router.push('/mainsite')
+      password: password.value,
+    });
+    if (error) throw error;
+    store.loggedin = ref(true);
+    store.email = email.value;
+    router.push("/mainsite");
   } catch (error) {
     if (error instanceof Error) {
-      alert('error ')
+      alert("error ");
     }
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 const signup = async () => {
   try {
-    loading.value = true
+    loading.value = true;
     const { error } = await supabase.auth.signUp({
       email: email.value,
-      password: password.value
-    })
-    if (error) throw error
-    router.push('/mainsite')
+      password: password.value,
+    });
+    if (error) throw error;
+    router.push("/mainsite");
   } catch (error) {
     if (error instanceof Error) {
-      alert('error')
+      alert("error");
     }
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>
@@ -50,13 +53,7 @@ const signup = async () => {
         <input class="inputField" required type="email" placeholder="Your email" v-model="email" />
       </div>
       <div>
-        <input
-          class="inputField"
-          required
-          type="password"
-          placeholder="Password"
-          v-model="password"
-        />
+        <input class="inputField" required type="password" placeholder="Password" v-model="password" />
       </div>
       <div><input type="submit" class="button" id="button" @click="signup" /> signup</div>
       <div><input type="submit" class="button" id="button" @click="login" /> login</div>
